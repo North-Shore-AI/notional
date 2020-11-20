@@ -217,7 +217,7 @@ export default class Table {
 
     return rowData
       .map(row => {
-        let filterOutRow = (filterKeys.length > 0) ? true : false;
+        let filterOutRow = filterKeys.length > 0 ? true : false;
 
         const formattedData = Object.entries(schema).reduce(
           (data, [key, headingData]) => {
@@ -302,7 +302,7 @@ export default class Table {
       id: userRecord.value.id,
       firstname: userRecord.value.given_name,
       lastname: userRecord.value.family_name,
-      photo: userRecord.value.profile_photo
+      photo: userRecord.value.profile_photo,
     }));
 
     return this.users;
@@ -505,6 +505,8 @@ export default class Table {
       rawSchema,
     );
 
-    return await this.transactionManager.setSchema(newSchema);
+    await this.transactionManager.setSchema(newSchema);
+    // clear out the schema so it gets refreshed
+    this.schema = null;
   }
 }
