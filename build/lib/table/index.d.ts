@@ -26,11 +26,11 @@ export default class Table {
     getKeys(): TableKeySet;
     getRows(filters?: object): Promise<Record<string, any>[]>;
     insertRows(data: object[]): Promise<import("axios").AxiosResponse<any>>;
-    updateRows(dataToUpdate: KeyValues, filters?: KeyValues): Promise<import("axios").AxiosResponse<any> | never[]>;
-    deleteRows(filters?: KeyValues): Promise<import("axios").AxiosResponse<any> | never[]>;
+    updateRows(dataToUpdate: KeyValues, filters?: KeyValues): Promise<never[] | import("axios").AxiosResponse<any>>;
+    deleteRows(filters?: KeyValues): Promise<never[] | import("axios").AxiosResponse<any>>;
     where(filters?: KeyValues): {
-        update: (data: Record<string, string | Function | string[]>) => Promise<import("axios").AxiosResponse<any> | never[]>;
-        delete: () => Promise<import("axios").AxiosResponse<any> | never[]>;
+        update: (data: KeyValues) => Promise<never[] | import("axios").AxiosResponse<any>>;
+        delete: () => Promise<never[] | import("axios").AxiosResponse<any>>;
         get: () => Promise<Record<string, any>[]>;
     };
     updateColumns(schema: Record<string, {

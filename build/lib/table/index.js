@@ -187,7 +187,6 @@ var Table = /** @class */ (function () {
         });
     };
     Table.prototype.formatToUserId = function (value) {
-        var _a;
         if (!this.users) {
             return value;
         }
@@ -196,7 +195,7 @@ var Table = /** @class */ (function () {
                 (user.firstname + " " + user.lastname).toLowerCase() ===
                     value.toLowerCase();
         });
-        return ((_a = user) === null || _a === void 0 ? void 0 : _a.id) || value;
+        return (user === null || user === void 0 ? void 0 : user.id) || value;
     };
     Table.prototype.getFilteredBlockData = function (filters, additionalData, filterByAdditionalData) {
         if (additionalData === void 0) { additionalData = {}; }
@@ -259,20 +258,20 @@ var Table = /** @class */ (function () {
         });
     };
     Table.prototype.getUsers = function () {
-        var _a, _b, _c, _d, _e, _f;
+        var _a, _b, _c, _d;
         return __awaiter(this, void 0, void 0, function () {
             var response, notionSpaces, groupedUserIds, uniqueIds, userIds, userRecordsResponse, notionUsers;
-            return __generator(this, function (_g) {
-                switch (_g.label) {
+            return __generator(this, function (_e) {
+                switch (_e.label) {
                     case 0:
                         if (this.users && this.users.length) {
                             return [2 /*return*/, Promise.resolve(this.users)];
                         }
                         return [4 /*yield*/, this.axios.post('loadUserContent', {})];
                     case 1:
-                        response = _g.sent();
-                        notionSpaces = Object.values(((_c = (_b = (_a = response) === null || _a === void 0 ? void 0 : _a.data) === null || _b === void 0 ? void 0 : _b.recordMap) === null || _c === void 0 ? void 0 : _c.space) || {});
-                        groupedUserIds = notionSpaces.map(function (space) { var _a, _b; return (((_b = (_a = space) === null || _a === void 0 ? void 0 : _a.value) === null || _b === void 0 ? void 0 : _b.permissions) || []).map(function (permission) { return permission.user_id; }); });
+                        response = _e.sent();
+                        notionSpaces = Object.values(((_b = (_a = response === null || response === void 0 ? void 0 : response.data) === null || _a === void 0 ? void 0 : _a.recordMap) === null || _b === void 0 ? void 0 : _b.space) || {});
+                        groupedUserIds = notionSpaces.map(function (space) { var _a; return (((_a = space === null || space === void 0 ? void 0 : space.value) === null || _a === void 0 ? void 0 : _a.permissions) || []).map(function (permission) { return permission.user_id; }); });
                         uniqueIds = [].concat.apply([], groupedUserIds);
                         userIds = Array.from(new Set(uniqueIds));
                         return [4 /*yield*/, this.axios.post('syncRecordValues', {
@@ -284,12 +283,14 @@ var Table = /** @class */ (function () {
                                 },
                             })];
                     case 2:
-                        userRecordsResponse = _g.sent();
-                        notionUsers = (_f = (_e = (_d = userRecordsResponse) === null || _d === void 0 ? void 0 : _d.data) === null || _e === void 0 ? void 0 : _e.recordMap) === null || _f === void 0 ? void 0 : _f.notion_user;
+                        userRecordsResponse = _e.sent();
+                        notionUsers = (_d = (_c = userRecordsResponse === null || userRecordsResponse === void 0 ? void 0 : userRecordsResponse.data) === null || _c === void 0 ? void 0 : _c.recordMap) === null || _d === void 0 ? void 0 : _d.notion_user;
                         this.users = Object.values(notionUsers || {}).map(function (userRecord) { return ({
+                            email: userRecord.value.email,
                             id: userRecord.value.id,
                             firstname: userRecord.value.given_name,
                             lastname: userRecord.value.family_name,
+                            photo: userRecord.value.profile_photo
                         }); });
                         return [2 /*return*/, this.users];
                 }
