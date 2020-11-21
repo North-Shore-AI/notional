@@ -5,6 +5,7 @@ import {
   TableKeySet,
   TextNode,
   DateModifiers,
+  LinkModifiers,
   TextNodeModifiers,
   UserModifiers,
   UserCache,
@@ -65,6 +66,12 @@ export default class Table {
     return !!modifiers && !!modifiers[0] && modifiers[0][0] === 'd';
   }
 
+  private isLinkModifier(
+    modifiers: TextNodeModifiers,
+  ): modifiers is LinkModifiers {
+    return !!modifiers && !!modifiers[0] && modifiers[0][0] === 'a';
+  }
+
   private isUserModifier(
     modifiers: TextNodeModifiers,
   ): modifiers is UserModifiers {
@@ -83,6 +90,8 @@ export default class Table {
         return textModifiers[0][1];
       } else if (this.isUserModifier(textModifiers)) {
         // TODO: Return a user name
+        return textModifiers[0][1];
+      } else if (this.isLinkModifier(textModifiers)) {
         return textModifiers[0][1];
       }
     }
