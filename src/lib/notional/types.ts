@@ -27,7 +27,7 @@ export type Config = {
   cache?: TableKeyCache;
 };
 
-export type KeyValues = Record<string, string | string[] | Function>;
+export type KeyValues = Record<string, string | string[] | [string, string[]] | Function>;
 
 type BaseValue = {
   id: string;
@@ -44,6 +44,7 @@ export type DateValues = {
 };
 
 export type DateModifiers = [['d', DateValues]];
+export type LinkModifiers = [['a', string]];
 export type UserModifiers = [['u', string]];
 
 export type TextNodeModifiers = string[][] | DateModifiers | UserModifiers;
