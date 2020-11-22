@@ -29,7 +29,7 @@ export type Config = {
 
 export type KeyValues = Record<
   string,
-  string | string[] | [string, string[][]] | Function
+  string | string[] | (string | string[])[] | Function
 >;
 
 type BaseValue = {
