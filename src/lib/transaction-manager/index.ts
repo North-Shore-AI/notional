@@ -75,7 +75,7 @@ export default class TransactionManager {
       case 'checkbox':
         return value ? [['Yes']] : null;
       default:
-        return value instanceof Array ? [[...value]] : [[value]];
+        return value instanceof Array ? value : [[value]];
     }
   }
 
