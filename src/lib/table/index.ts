@@ -228,6 +228,10 @@ export default class Table {
       .map(row => {
         let filterOutRow = filterKeys.length > 0 ? true : false;
 
+        if (filters.id && filters.id === row.block_id) {
+          filterOutRow = false;
+        }
+
         const formattedData = Object.entries(schema).reduce(
           (data, [key, headingData]) => {
             let value;
@@ -458,7 +462,6 @@ export default class Table {
     this.setQueryCaching(true);
     const data = (await this.getFilteredBlockData(filters)) as { id: string }[];
     this.setQueryCaching(false);
-
     if (!data.length) {
       return [];
     }
