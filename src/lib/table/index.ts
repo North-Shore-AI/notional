@@ -545,6 +545,8 @@ export default class Table {
             );
             if (!previous) {
               options.push({ id, value: option.value!, color: option.color! });
+            } else {
+              previous.value = option.value;
             }
             return options;
           }, newSchema[id].options || []);
