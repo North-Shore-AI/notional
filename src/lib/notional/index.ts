@@ -16,7 +16,7 @@ export class Notional {
   private http: AxiosInstance;
 
   private baseConfig = {
-    limit: 100000,
+    limit: 100,
     chunkNumber: 0,
     cursor: { stack: [] },
     verticalColumns: false,
