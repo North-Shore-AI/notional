@@ -83,7 +83,7 @@ export class Notional {
     }
 
     if (keys.length > 1) {
-      throw new Error(`Multiple tables found on URL "${url}"`);
+      //throw new Error(`Multiple tables found on URL "${url}"`);
     }
 
     return tableIds[keys[0]];
